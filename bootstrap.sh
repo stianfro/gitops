@@ -26,6 +26,8 @@ while [ $POD_STATUS == "false" ] ; do
   kubectl get pod argocd-application-controller-0
   if [ $? -eq 0 ] ; then
     POD_STATUS="true"
+  else
+    sleep 3
   fi
 done
 
@@ -41,8 +43,11 @@ argocd login --core --name minikube
 echo "Add kuma helm repo"
 argocd repo add https://kumahq.github.io/charts --type helm --name kuma
 
-echo "Installing kuma standalone"
+echo "Installing kuma standalont App"
 kubectl create -f https://raw.githubusercontent.com/stianfro/gitops/main/kuma/standalone.yaml
+
+echo "Syncing kuma App"
+argocd app sync kuma-standalone
 
 echo "Access kuma:"
 echo "kubectl port-forward svc/kuma-control-plane -n kuma-system 5681:5681"

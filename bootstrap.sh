@@ -26,9 +26,10 @@ argocd login --core --name minikube
 echo "Add minikube as cluster"
 argocd cluster add minikube --yes
 
-echo ""
-kubectl create -f
+echo "Installing kuma standalone"
+kubectl create -f https://raw.githubusercontent.com/stianfro/gitops/main/kuma/standalone.yaml
 
-echo ""
-echo ""
+echo "Access kuma:"
+echo "kubectl port-forward svc/kuma-control-plane -n kuma-system 5681:5681"
+echo "http://127.0.0.1:5681/gui"
 echo ""

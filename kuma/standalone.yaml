@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kuma-standalone
+  namespace: argocd
+spec:
+  destination:
+    name: minikube
+    namespace: kuma-system
+  project: kuma
+  source:
+    chart: kuma
+    repoURL: https://kumahq.github.io/charts
+    targetRevision: 1.6.0
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true

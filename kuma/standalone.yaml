@@ -7,7 +7,7 @@ spec:
   destination:
     name: minikube
     namespace: kuma-system
-  project: kuma
+  project: default
   source:
     chart: kuma
     repoURL: https://kumahq.github.io/charts

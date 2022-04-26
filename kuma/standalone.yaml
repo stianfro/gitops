@@ -12,6 +12,18 @@ spec:
     chart: kuma
     repoURL: https://kumahq.github.io/charts
     targetRevision: 1.6.0
+    helm:
+      parameters:
+        - name: controlPlane.nodeSelector
+          value: '{"kubernetes.io/os":"linux"}'
+        - name: cni.nodeSelector
+          value: '{"kubernetes.io/os":"linux"}'
+        - name: ingress.nodeSelector
+          value: '{"kubernetes.io/os":"linux"}'
+        - name: egress.nodeSelector
+          value: '{"kubernetes.io/os":"linux"}'
+        - name: hooks.nodeSelector
+          value: '{"kubernetes.io/os":"linux"}'
   syncPolicy:
     syncOptions:
     - CreateNamespace=true

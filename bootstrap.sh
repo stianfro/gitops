@@ -32,10 +32,10 @@ while [ $POD_STATUS == "false" ] ; do
 done
 
 echo "Check Argo CD status before continuing"
-kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=argocd-application-controller -n argocd
-kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=argocd-applicationset-controller -n argocd
-kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=argocd-redis -n argocd
-kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=argocd-repo-server -n argocd
+kubectl wait --timeout 60s --for=condition=ready pod -l app.kubernetes.io/name=argocd-application-controller -n argocd
+kubectl wait --timeout 60s --for=condition=ready pod -l app.kubernetes.io/name=argocd-applicationset-controller -n argocd
+kubectl wait --timeout 60s --for=condition=ready pod -l app.kubernetes.io/name=argocd-redis -n argocd
+kubectl wait --timeout 60s --for=condition=ready pod -l app.kubernetes.io/name=argocd-repo-server -n argocd
 
 echo "Setting up Argo CD CLI"
 argocd login --core --name minikube
@@ -43,7 +43,7 @@ argocd login --core --name minikube
 echo "Add kuma helm repo"
 argocd repo add https://kumahq.github.io/charts --type helm --name kuma
 
-echo "Installing kuma standalont App"
+echo "Installing kuma standalone App"
 kubectl create -f https://raw.githubusercontent.com/stianfro/gitops/main/kuma/standalone.yaml
 
 echo "Syncing kuma App"

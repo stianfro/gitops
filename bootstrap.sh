@@ -20,6 +20,20 @@ echo "Installing Argo CD Core"
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
 
+echo "Check Argo CD status before continuing"
+
+ARGO_READY="false"
+
+while [ $ARGO_READY == "false"  ] ; do
+  kubectl get pods -n argocd | grep -v NAME | grep -v Running
+  if [ $? -eq 1 ] ; then
+    echo "..."
+  else
+    echo "Ready, continuing"
+    ARGO_READY='true'
+  fi
+done
+
 echo "Setting up Argo CD CLI"
 argocd login --core --name minikube
 

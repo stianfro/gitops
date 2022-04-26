@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    name: minikube
+    name: in-cluster
     namespace: kuma-system
   project: default
   source:

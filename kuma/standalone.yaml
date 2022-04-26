@@ -14,16 +14,16 @@ spec:
     targetRevision: 1.6.0
     helm:
       parameters:
-        - name: controlPlane.nodeSelector.kubernetes.io/arch
-          value: arm64
-        - name: cni.nodeSelector.kubernetes.io/arch
-          value: arm64
-        - name: ingress.nodeSelector.kubernetes.io/arch
-          value: arm64
-        - name: egress.nodeSelector.kubernetes.io/arch
-          value: arm64
-        - name: hooks.nodeSelector.kubernetes.io/arch
-          value: arm64
+        - name: 'controlPlane.nodeSelector.kubernetes.io/arch'
+          value: 'arm64'
+        - name: 'cni.nodeSelector.kubernetes.io/arch'
+          value: 'arm64'
+        - name: 'ingress.nodeSelector.kubernetes.io/arch'
+          value: 'arm64'
+        - name: 'egress.nodeSelector.kubernetes.io/arch'
+          value: 'arm64'
+        - name: 'hooks.nodeSelector.kubernetes.io/arch'
+          value: 'arm64'
   syncPolicy:
     syncOptions:
     - CreateNamespace=true

@@ -12,16 +12,6 @@ spec:
     chart: kuma
     repoURL: https://kumahq.github.io/charts
     targetRevision: 1.6.0
-  helm:
-    parameters:
-      - name: cni.nodeSelector.kubernetes.io/arch
-        value: arm64
-      - name: controlPlane.nodeSelector.kubernetes.io/arch
-        value: arm64
-      - name: egress.nodeSelector.kubernetes.io/arch
-        value: arm64
-      - name: ingress.nodeSelector.kubernetes.io/arch
-        value: arm64
   syncPolicy:
     syncOptions:
     - CreateNamespace=true

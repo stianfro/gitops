@@ -47,8 +47,14 @@ argocd login --core --name minikube
 echo "Add kuma helm repo"
 argocd repo add https://kumahq.github.io/charts --type helm --name kuma
 
-echo "Installing kuma standalone App"
-kubectl kustomize https://raw.githubusercontent.com/stianfro/gitops/main/kuma | kubectl create -f -
+echo "Add gitops git repo"
+argocd repo add https://github.com/stianfro/gitops --type git --name gitops
+
+echo "Installing bootstrap App"
+kubectl create -f https://raw.githubusercontent.com/stianfro/gitops/main/bootstrap.yaml
+
+echo "Syncing bootstrap App"
+argocd app sync kuma-standalone
 
 echo "Syncing kuma App"
 argocd app sync kuma-standalone

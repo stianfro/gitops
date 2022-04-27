@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: Create check for CLI tools
+
 echo "Checking minikube status"
 
 minikube status
@@ -8,9 +10,11 @@ if [ $? -eq 0 ] ; then
   echo "minikube already running, recreating cluster ..."
   minikube delete
   minikube start
+  minikube addons enable ingress
 else
   echo "Starting minikube"
   minikube start
+  minikube addons enable ingress
 fi
 
 echo "Set context to use argocd namespace"

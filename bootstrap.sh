@@ -48,7 +48,7 @@ echo "Add kuma helm repo"
 argocd repo add https://kumahq.github.io/charts --type helm --name kuma
 
 echo "Installing kuma standalone App"
-kubectl create -f https://raw.githubusercontent.com/stianfro/gitops/main/kuma/standalone.yaml
+kubectl kustomize https://raw.githubusercontent.com/stianfro/gitops/main/kuma | kubectl create -f -
 
 echo "Syncing kuma App"
 argocd app sync kuma-standalone

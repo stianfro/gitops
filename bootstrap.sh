@@ -54,7 +54,7 @@ echo "Installing bootstrap App"
 kubectl create -f https://raw.githubusercontent.com/stianfro/gitops/main/bootstrap.yaml
 
 echo "Syncing bootstrap App"
-argocd app sync kuma-standalone
+argocd app sync bootstrap
 
 echo "Syncing kuma App"
 argocd app sync kuma-standalone

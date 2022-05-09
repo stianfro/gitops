@@ -21,7 +21,7 @@ curl -sfL https://get.k3s.io | sh -
 # /usr/local/bin/k3s-uninstall.sh
 
 echo "Set k3s kubeconfig"
-cp -v /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo cp -v /etc/rancher/k3s/k3s.yaml ~/.kube/config
 export KUBECONFIG=~/.kube/config
 
 echo "Current KUBECONFIG: $KUBECONFIG"

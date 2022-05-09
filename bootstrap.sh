@@ -17,6 +17,15 @@
 #   minikube addons enable ingress
 # fi
 
+curl -sfL https://get.k3s.io | sh -
+# /usr/local/bin/k3s-uninstall.sh
+
+echo "Set k3s kubeconfig"
+cp -v /etc/rancher/k3s/k3s.yaml ~/.kube/config
+export KUBECONFIG=~/.kube/config
+
+echo "Current KUBECONFIG: $KUBECONFIG"
+
 echo "Set context to use argocd namespace"
 kubectl config set-context default --namespace=argocd
 
@@ -49,6 +58,9 @@ argocd repo add https://kumahq.github.io/charts --type helm --name kuma
 
 echo "Add gitops git repo"
 argocd repo add https://github.com/stianfro/gitops --type git --name gitops
+
+echo "Create kuma-system namespace"
+kubectl create namespace kuma-system
 
 echo "Installing bootstrap App"
 kubectl create -f https://raw.githubusercontent.com/stianfro/gitops/main/bootstrap.yaml

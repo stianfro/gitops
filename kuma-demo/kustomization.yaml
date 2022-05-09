@@ -1,0 +1,6 @@
+resources:
+  - namespace.yaml
+  - redis/deployment.yaml
+  - redis/service.yaml
+  - demo-app/deployment.yaml
+  - demo-app/service.yaml

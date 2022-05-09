@@ -2,23 +2,23 @@
 
 # TODO: Create check for CLI tools
 
-echo "Checking minikube status"
+# echo "Checking minikube status"
 
-minikube status
+# minikube status
 
-if [ $? -eq 0 ] ; then
-  echo "minikube already running, recreating cluster ..."
-  minikube delete
-  minikube start
-  minikube addons enable ingress
-else
-  echo "Starting minikube"
-  minikube start
-  minikube addons enable ingress
-fi
+# if [ $? -eq 0 ] ; then
+#   echo "minikube already running, recreating cluster ..."
+#   minikube delete
+#   minikube start
+#   minikube addons enable ingress
+# else
+#   echo "Starting minikube"
+#   minikube start
+#   minikube addons enable ingress
+# fi
 
 echo "Set context to use argocd namespace"
-kubectl config set-context minikube --namespace=argocd
+kubectl config set-context default --namespace=argocd
 
 echo "Installing Argo CD Core"
 kubectl create namespace argocd
@@ -42,7 +42,7 @@ kubectl wait --timeout 60s --for=condition=ready pod -l app.kubernetes.io/name=a
 kubectl wait --timeout 60s --for=condition=ready pod -l app.kubernetes.io/name=argocd-repo-server -n argocd
 
 echo "Setting up Argo CD CLI"
-argocd login --core --name minikube
+argocd login --core --name default
 
 echo "Add kuma helm repo"
 argocd repo add https://kumahq.github.io/charts --type helm --name kuma

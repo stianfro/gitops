@@ -71,7 +71,11 @@ argocd app sync bootstrap
 echo "Syncing kuma App"
 argocd app sync kuma-standalone
 
+echo "Creating kuma demo application"
+kubectl apply -f https://bit.ly/3Kh2Try
+
 echo "Access kuma:"
-echo "kubectl port-forward svc/kuma-control-plane -n kuma-system 5681:5681"
-echo "http://127.0.0.1:5681/gui"
-echo ""
+echo "http://`ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1`/gui"
+
+echo "kubectl in fish:"
+echo "set -x KUBECONFIG '`echo ~`/.kube/config'"

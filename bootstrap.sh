@@ -75,7 +75,46 @@ echo "Creating kuma demo application"
 kubectl apply -f https://bit.ly/3Kh2Try
 
 echo "Access kuma:"
-echo "http://`ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1`/gui"
+echo "http://kuma.local/gui"
 
 echo "kubectl in fish:"
 echo "set -x KUBECONFIG '`echo ~`/.kube/config'"
+
+echo "Press Enter to continue"
+read
+
+echo "Enable kuma mTLS"
+echo "apiVersion: kuma.io/v1alpha1
+kind: Mesh
+metadata:
+  name: default
+spec:
+  mtls:
+    enabledBackend: ca-1
+    backends:
+    - name: ca-1
+      type: builtin" | kubectl apply -f -
+
+echo "Installing kuma metrics"
+kumactl install metrics | kubectl apply -f -
+echo "apiVersion: kuma.io/v1alpha1
+kind: Mesh
+metadata:
+  name: default
+spec:
+  mtls:
+    enabledBackend: ca-1
+    backends:
+    - name: ca-1
+      type: builtin
+  metrics:
+    enabledBackend: prometheus-1
+    backends:
+    - name: prometheus-1
+      type: prometheus" | kubectl apply -f -
+
+
+echo "Access Grafana:"
+echo "kubectl port-forward svc/grafana -n kuma-metrics 3000:3000 --address 0.0.0.0"
+
+

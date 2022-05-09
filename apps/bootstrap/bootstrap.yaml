@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/stianfro/gitops.git'
-    path: kuma
+    path: apps/kuma-control-plane
     targetRevision: HEAD
   destination:
     name: in-cluster

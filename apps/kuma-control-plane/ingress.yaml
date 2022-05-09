@@ -5,7 +5,8 @@ metadata:
   namespace: kuma-system
 spec:
   rules:
-    - http:
+    - host: kuma.local
+      http:
         paths:
           - path: /
             pathType: Prefix
